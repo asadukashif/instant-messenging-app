@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Instant Messaging</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/d582a48102.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark pr-3 pl-3">
+        <div class="navbar-brand">Messaging</div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id='navbarSupportedContent'>
+            <ul class="navbar-nav ml-auto nav-links">
+                <li class="nav-link"><a id='displayName' href="#"></a></li>
+                <li class="nav-link">
+                    <select id="groupList">
+                        {% if groups %}
+                        {% for group in groups %}
+                        <option value="{{ group.name }}">{{ group.name }}</option>
+                        {% endfor %}
+                        {% endif %}
+                    </select>
+                </li>
+                <li class="nav-link"><a href="#" style="flex-wrap: nowrap;" data-target="#groupCreationModal"
+                        data-toggle="modal">Create Group</a>
+                </li>
+                <li class="nav-link">
+                    <form id="userInputForm" action="#">
+                        <input id="userInput" autocomplete="off" placeholder="Search a User" list='usersList'>
+                        <datalist id='usersList'>
+                        </datalist>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="context-menu">
+        <a data-action="edit" href="#" class="item"><i class="fas fa-italic"></i>Edit</a>
+        <a data-action="hide" href="#" class="item"><i class="far fa-eye-slash"></i></i>Hide</a>
+        <a data-action="delete" href="#" class="item"><i class="fas fa-trash"></i></i>Delete</a>
+        <hr class="w-100 text-center">
+        <a data-action="close" href="#" class="item"><i class="fas fa-times"></i>Exit</a>
+    </div>
+
+    <!-- Messages Area -->
+    <div class="container message-area">
+        <!-- Message Output -->
+        <div class="message-output"></div>
+        <!-- Textinput and Button -->
+        <form class="message-input" id='sendMessage'>
+            <input type="text" autocomplete="off" autofocus="true" id="messageField">
+            <button type="submit"><img class="img-fluid" src="{{ url_for('static', filename='img/send.png') }}"
+                    alt="Send!"></button>
+        </form>
+    </div>
+    <!-- Messages Area End -->
+
+
+
+    <!-- MODALS -->
+
+    <!-- Create a Group -->
+    <div class="modal fade" id="groupCreationModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-metal">
+                <div class="modal-header">
+                    <h5 class="modal-title display-4" style="font-size: 2rem;">Enter a Group Name
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" maxlength="15" minlength="4" class="form-control" autocomplete="off"
+                            placeholder="Group Name" id='groupNameField'>
+                        <small class="text-muted">Min Length: 04</small>
+                        <small id="groupErrorMessage" class="text-danger"></small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-primary" id="groupSaveBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Initializes a Display Name -->
+    <div class="modal fade" id="changeDisplayNameModal" data-backdrop='static' tabindex="-1" role="dialog"
+        aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-metal">
+                <div class="modal-header">
+                    <h5 class="modal-title display-4" style="font-size: 2rem;">Choose a Display Name
+                    </h5>
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" maxlength="15" minlength="4" class="form-control" autocomplete="off"
+                            placeholder="Display Name" id='displayNameField'>
+                        <small class="text-muted">Min Length: 04</small>
+                        <small id="nameErrorMessage" class="text-danger"></small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary disbaled" disbaled=true>Close</button>
+                    <button type="button" class="btn btn-outline-primary" id="nameSaveBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edits Message Text -->
+    <div class="modal fade" id="editMessageModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-metal">
+                <div class="modal-header">
+                    <h5 class="modal-title display-4" style="font-size: 2rem;">Edit Text
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" autocomplete="off" placeholder="New Text"
+                            id='editMessageField'>
+                        <small id="editMessageErrorMessage" class="text-danger"></small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-outline-secondary">Close</button>
+                    <button type="button" class="btn btn-outline-primary" id="editMessageSaveBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Private Messages Modal -->
+    <div class="modal fade privateChatModal" id="privateChatModal" data-backdrop='static' tabindex="-1" role="dialog"
+        aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content bg-metal">
+                <div class="modal-header">
+                    <h5 class="modal-title display-4" id="privateChatModalTitle" style="font-size: 2rem;">
+                    </h5>
+                    <button type="button" data-dismiss="modal" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container message-area">
+                        <!-- Message Output -->
+                        <div id='privateMessageOutput' class="message-output"></div>
+                        <!-- Textinput and Button -->
+                        <form class="message-input" id='sendPrivateMessage'>
+                            <input type="text" autocomplete="off" autofocus="true" id="privateMessageField">
+                            <button type="submit"><img class="img-fluid"
+                                    src="{{ url_for('static', filename='img/send.png') }}" alt="Send!"></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-primary" id="nameSaveBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- SocketIO -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <!-- HandleBars -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+</body>
+
+
+</html>

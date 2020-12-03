@@ -1,0 +1,115 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.wrapper {
+    background-image: url('https://images.unsplash.com/photo-1477346611705-65d1883cee1e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+
+    height: 100vh;
+}
+
+.button-wrapper {
+    margin: auto;
+}
+
+.main-wrapper {
+    background-color: lime;
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar-wrapper {
+    background-color: linen;
+    order: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+}
+.sidebar-header {
+    background-image: url("https://images.unsplash.com/photo-1484589065579-248aad0d8b13?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=696&q=80");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid magenta;
+    display: flex;
+    flex: 2;
+}
+
+.sidebar-header h6 {
+    color: white;
+    margin: auto auto auto auto;
+    padding: 5px;
+}
+.sidebar-element {
+    background-color: yellow;
+    padding: 10px 10px;
+    border: 1px solid magenta;
+    align-self: stretch;
+   
+    margin: 2px;
+    display: flex;
+}
+
+.secondary-wrapper {
+    order: 2;
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.messages-wrapper {
+    /* min-height: 150px; */
+    overflow-y: scroll;
+    flex: 1;
+}
+
+.msg-input-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.img-div {
+    margin: 0 2px 0 2px;
+}
+
+.textarea-div {
+    flex: 1;    
+    margin: 0 auto 0 0;
+}
+.messages-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.message-wrapper {
+    background-color: rgb(148, 188, 240);
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    align-self: flex-end;
+}
+.message {
+    order: 2;
+    flex: 1;
+}
+
+.upper-layer {
+    display: flex;
+    flex: 1;
+    order: 1;
+}
+
+.user { 
+    text-align: left;
+    flex: 1;
+}
+
+.time {
+    text-align: right;
+    flex: 1;
+}

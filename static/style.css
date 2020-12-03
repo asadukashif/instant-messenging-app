@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+* {
+    font-family: 'Poppins', sans-serif;
+}
+/* Navbar */
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 71, .95);
+    color: mintcream;
+    align-items: center;
+    min-height: 8vh;
+}
+
+.nav-links {
+    font-size: 1rem;
+    display: flex;
+    padding: 0;
+    margin: 0; 
+}
+
+.banner {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.nav-links a{
+    color: mintcream;
+    text-decoration: none;
+    flex-wrap: nowrap;
+}
+.nav-links select{
+    background-color: inherit;
+    color: mintcream; 
+    border: none;
+    width: 100px; 
+    text-align: center;
+    border-bottom: 1px solid mintcream;
+}
+.nav-links option{
+    color: rgba(0, 0, 71, .95);
+}
+.nav-link input {
+    height: 25px;
+    width: 150px;
+    font-size: 1rem;
+    background-color: inherit;
+    color: mintcream;
+    border: none;
+    border-bottom: 1px solid mintcream;
+    outline: none;
+}
+
+.nav-link input::after {
+    height: 25px;
+    width: 150px;
+    font-size: 1rem;
+    background-color: inherit;
+    color: mintcream;
+    border: none;
+    border-bottom: 1px solid mintcream;
+    outline: none;
+}
+.nav-link input::placeholder {
+    color: mintcream;
+    opacity: .8
+}
+
+
+/* Messages Area */
+.message-area {
+    display: flex;
+    flex-direction: column;
+    
+}
+.message-output {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 71, 0.055);
+    overflow-y: auto;
+    border-top: none;
+    border-bottom: none;
+    height: 85vh;
+    min-height: min-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.message-input {
+    display: flex;
+    height: 5vh;
+    justify-content: space-between;
+}
+.message-input input {
+    flex: 1;
+    padding: auto 3px;
+    overflow: scroll;
+}
+.message-input button, img {
+    border: 0;
+    padding: 0;
+    background: rgba(0, 0, 0, 0);
+}
+
+@media screen and (max-width: 768px){
+    .banner {
+        font-size: 1.6rem;
+    }
+}
+
+@media screen and (max-width: 615px){
+    .banner {
+        font-size: 1.2rem;
+    }
+    .nav-links {
+        font-size: 0.7rem;
+    }
+    nav {
+        padding: auto auto;
+    }
+    .nav-links select {
+        width: 70px;
+    }
+
+}
+
+/* Messages Indivisual */
+.messages-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.message-wrapper {
+    background-color: rgb(148, 188, 240);
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    align-self: flex-start;
+}
+.message {
+    order: 2;
+    flex: 1;
+}
+
+.upper-layer {
+    display: flex;
+    flex: 1;
+    order: 1;
+}
+.user { 
+    text-align: left;
+    flex: 1;
+}
+
+.time {
+    text-align: right;
+    flex: 1;
+}
+
+
+/* Context Menu */
+.context-menu {
+    border: 1px solid black;
+    position: absolute;
+    background-color: #1b1a1af1;
+    color: mintcream;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    height: fit-content;
+    width: 150px;
+    font-size: .8rem;
+    top: 10px;
+    left: 10px;
+    z-index: 999999;
+}
+.context-menu hr {
+    margin: 2px 2px;
+    padding: 0;
+    background-color: mintcream;
+}
+.context-menu .item {
+    text-transform: capitalize;
+    text-decoration: none;
+    color: mintcream;
+    padding: 10px;
+    padding-left: 0;
+    flex: 1;
+    transition: background-color .3s ease-in;
+}
+
+.context-menu .item:hover {
+    background-color: mintcream;
+    color: #1b1a1af1; 
+}
+
+.context-menu .item i {
+    margin: 5px;
+    padding: 0 5px;
+}
+
+#editMessageModal {
+    z-index: 99999999;
+}
+
+/* Private USer Messages Modal */
+.privateChatModal{
+    height: 100vh;
+    width: 100%;
+}
+
+.privateChatModal .message-output{
+    height: 80vh;
+}
+
+.privateChatModal .message-input {
+    height: 5vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="wrapper">
+    <!-- Button trigger modal -->
+    <div class="button-wrapper">
+        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#changeDisplayNameModal">
+            Get Started?
+        </button>
+    </div>
+</div>
+
+
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+<div class="message-wrapper p-3">
+    <div class="upper-layer">
+        <div class="user">{{ user }}</div>
+        <div class="time"> {{ time }} </div>
+    </div>
+    <div class="message text-justify">
+        {{ message }}
+    </div>
+</div>
+{% endblock %}

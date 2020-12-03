@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="main-wrapper m-1">
+
+    <div class="sidebar-wrapper">
+        <div class="sidebar-header">
+            <h6>Asad18k</h6>
+        </div>
+        <div class="sidebar-element">
+            <a href="#" class="link">Create Group</a>
+        </div>
+        <div class="sidebar-element">
+            {% if groups %}
+            <label for="#groupSelector" style="padding: 3px 3px;">Group:</label>
+            <select style="flex: 1;" id="groupSelector">
+                {% for group in groups %}
+                <option value="{{ group.name }}">{{ group.name }}</option>
+                {% endfor %}
+            </select>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="secondary-wrapper">
+
+        <div data-height="1080px" id='messageArea' class="messages-wrapper"></div>
+
+        <div class="msg-input-wrapper">
+            <div class="textarea-div form-group">
+                <textarea id="messageField" class="form-control" rows="1"></textarea>
+            </div>
+            <div class="img-div">
+                <button id='sendBtn'
+                    style="width: 36px; height: 36px;padding: 0; background-color: rgba(0,0,0,0); border: 0;"><img
+                        src="https://image.flaticon.com/icons/svg/786/786407.svg" alt="Send"></button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+
+{% endblock content %}

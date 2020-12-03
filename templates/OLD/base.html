@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>{{ title }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HandleBars -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="#">
+            <img src="https://image.flaticon.com/icons/svg/942/942751.svg" style="height: 45px; width: 45px;" class=""
+                alt="Brank">
+            <span class="m-1">Instant Messaging</span>
+        </a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" id="displayNameDisplay"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#groupCreationModal" href="#">Create a
+                        Group</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} text-center">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% block content %}
+
+    {% endblock content %}
+    <!-- For Changing Display Name -->
+    <div class="modal fade" id="changeDisplayNameModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-metal">
+                <div class="modal-header">
+                    <h5 class="modal-title display-4" style="font-size: 2rem;">Choose a Display Name
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" maxlength="15" class="form-control" autocomplete="off"
+                            placeholder="Display Name" id='displayNameField'>
+                    </div>
+                    <span class="text-danger" id='errorMsg'></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-primary" id="nameSaveBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- For Group Creation -->
+    <div class="modal fade" id="groupCreationModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-metal">
+                <div class="modal-header">
+                    <h5 class="modal-title display-4" style="font-size: 2rem;">Enter a Group Name
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" maxlength="15" class="form-control" autocomplete="off"
+                            placeholder="Group Name" id='groupNameField'>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-primary" id="groupSaveBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<!-- All Required JavaScript -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- SocketIO -->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+
+
+</html>
